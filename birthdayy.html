@@ -1,0 +1,421 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Happy Birthday Nandini!</title>
+    <link href="https://fonts.googleapis.com/css2?family=Dancing+Script:wght@400;700&family=Roboto:wght@300;400;700&display=swap" rel="stylesheet">
+    <style>
+        /* Global Styles */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Roboto', sans-serif;
+            background: linear-gradient(135deg, #e3f2fd 0%, #bbdefb 30%, #90caf9 60%, #e1f5fe 100%);
+            color: #1565c0;
+            overflow-x: hidden;
+            min-height: 100vh;
+        }
+
+        /* Birthday Text */
+        .birthday-title {
+            text-align: center;
+            margin: 20px 0;
+            font-size: 4.5rem;
+            font-weight: 700;
+            font-family: 'Dancing Script', cursive;
+            color: #1565c0;
+            text-shadow: 0 0 20px rgba(21, 101, 192, 0.5), 0 0 40px rgba(21, 101, 192, 0.3);
+            letter-spacing: 2px;
+        }
+
+        /* Countdown Section */
+        .countdown {
+            text-align: center;
+            margin: 40px 0;
+            padding: 20px;
+            background: rgba(255, 255, 255, 0.9);
+            border-radius: 20px;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+            max-width: 600px;
+            margin-left: auto;
+            margin-right: auto;
+            border: 2px solid #42a5f5;
+        }
+
+        .countdown h2 {
+            font-size: 2rem;
+            color: #1976d2;
+            margin-bottom: 20px;
+            font-weight: 300;
+        }
+
+        .time-display {
+            display: flex;
+            justify-content: center;
+            gap: 20px;
+            font-size: 1.5rem;
+            font-weight: 400;
+            color: #1565c0;
+        }
+
+        .time-unit {
+            background: linear-gradient(135deg, #e3f2fd 0%, #bbdefb 100%);
+            padding: 10px 15px;
+            border-radius: 10px;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+            min-width: 60px;
+            color: #1565c0;
+            font-weight: 700;
+        }
+
+        /* Cake Animation */
+        .cake-container {
+            text-align: center;
+            margin: 40px 0;
+        }
+
+        .cake {
+            position: relative;
+            display: inline-block;
+        }
+
+        .layer {
+            width: 100px;
+            height: 30px;
+            background: linear-gradient(135deg, #2196f3, #42a5f5);
+            border-radius: 10px;
+            margin: 5px auto;
+            position: relative;
+        }
+
+        .layer:nth-child(1) { width: 120px; background: linear-gradient(135deg, #64b5f6, #42a5f5); }
+        .layer:nth-child(2) { width: 100px; background: linear-gradient(135deg, #2196f3, #42a5f5); }
+        .layer:nth-child(3) { width: 80px; background: linear-gradient(135deg, #90caf9, #64b5f6); }
+
+        .candle {
+            position: absolute;
+            top: -10px;
+            right: 10px;
+            width: 4px;
+            height: 20px;
+            background: #ffeb3b;
+            border-radius: 2px;
+        }
+
+        .flame {
+            position: absolute;
+            top: -5px;
+            left: -1px;
+            width: 6px;
+            height: 8px;
+            background: #ff4444;
+            border-radius: 50% 50% 50% 50% / 60% 60% 40% 40%;
+            animation: flicker 0.5s infinite alternate;
+        }
+
+        @keyframes flicker {
+            0% { opacity: 1; transform: scale(1); }
+            100% { opacity: 0.8; transform: scale(1.1); }
+        }
+
+        /* Balloons for Theme */
+        .balloons {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            pointer-events: none;
+            z-index: -1;
+        }
+
+        .balloon {
+            position: absolute;
+            width: 50px;
+            height: 60px;
+            background: radial-gradient(circle at 30% 30%, #2196f3, #42a5f5);
+            border-radius: 50% 50% 50% 50% / 60% 60% 40% 40%;
+            animation: floatUp 8s infinite linear;
+        }
+
+        .balloon:nth-child(odd) {
+            background: radial-gradient(circle at 30% 30%, #64b5f6, #90caf9);
+        }
+
+        .balloon:nth-child(3n) {
+            background: radial-gradient(circle at 30% 30%, #bbdefb, #e3f2fd);
+        }
+
+        .balloon::after {
+            content: '';
+            position: absolute;
+            bottom: -10px;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 2px;
+            height: 20px;
+            background: #1565c0;
+        }
+
+        @keyframes floatUp {
+            0% {
+                transform: translateY(100vh) rotate(0deg);
+                opacity: 1;
+            }
+            100% {
+                transform: translateY(-100px) rotate(180deg);
+                opacity: 0;
+            }
+        }
+
+        /* Comment Section */
+        .comments-section {
+            max-width: 600px;
+            margin: 40px auto;
+            padding: 20px;
+            background: rgba(255, 255, 255, 0.95);
+            border-radius: 20px;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+            border: 2px solid #42a5f5;
+        }
+
+        .comments-section h2 {
+            text-align: center;
+            color: #1976d2;
+            margin-bottom: 20px;
+            font-weight: 300;
+        }
+
+        .comment-form {
+            display: flex;
+            flex-direction: column;
+            gap: 10px;
+            margin-bottom: 20px;
+        }
+
+        .comment-form input,
+        .comment-form textarea {
+            padding: 10px;
+            border: 2px solid #42a5f5;
+            border-radius: 10px;
+            font-size: 1rem;
+            font-family: 'Roboto', sans-serif;
+        }
+
+        .comment-form button {
+            padding: 10px;
+            background: linear-gradient(135deg, #2196f3, #42a5f5);
+            color: white;
+            border: none;
+            border-radius: 10px;
+            cursor: pointer;
+            font-size: 1rem;
+            transition: transform 0.3s;
+            font-weight: 400;
+        }
+
+        .comment-form button:hover {
+            transform: scale(1.05);
+        }
+
+        .comments-list {
+            display: flex;
+            flex-direction: column;
+            gap: 15px;
+        }
+
+        .comment {
+            background: linear-gradient(135deg, #fff 0%, #e3f2fd 100%);
+            padding: 15px;
+            border-radius: 10px;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+            border-left: 4px solid #2196f3;
+            position: relative;
+        }
+
+        .comment-header {
+            font-weight: 700;
+            color: #1976d2;
+            margin-bottom: 5px;
+            font-family: 'Roboto', sans-serif;
+        }
+
+        .comment-text {
+            color: #1565c0;
+            font-weight: 300;
+        }
+
+        .delete-btn {
+            position: absolute;
+            top: 10px;
+            right: 10px;
+            background: #ff4444;
+            color: white;
+            border: none;
+            border-radius: 50%;
+            width: 25px;
+            height: 25px;
+            cursor: pointer;
+            font-size: 0.8rem;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transition: background 0.3s;
+        }
+
+        .delete-btn:hover {
+            background: #cc0000;
+        }
+
+        /* Responsive */
+        @media (max-width: 768px) {
+            .birthday-title { font-size: 3rem; }
+            .time-display { gap: 10px; font-size: 1.2rem; }
+            .time-unit { min-width: 50px; padding: 8px 10px; }
+        }
+    </style>
+</head>
+<body>
+    <!-- Balloons Background -->
+    <div class="balloons" id="balloons"></div>
+
+    <!-- Birthday Title -->
+    <h1 class="birthday-title">Happy Birthday Nandini!</h1>
+
+    <!-- Countdown -->
+    <div class="countdown">
+        <h2>Countdown to Midnight Celebration!</h2>
+        <div class="time-display">
+            <div class="time-unit">
+                <div id="days">00</div>
+                <div>Days</div>
+            </div>
+            <div class="time-unit">
+                <div id="hours">00</div>
+                <div>Hours</div>
+            </div>
+            <div class="time-unit">
+                <div id="minutes">00</div>
+                <div>Minutes</div>
+            </div>
+            <div class="time-unit">
+                <div id="seconds">00</div>
+                <div>Seconds</div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Cake Animation -->
+    <div class="cake-container">
+        <div class="cake">
+            <div class="layer"></div>
+            <div class="layer"></div>
+            <div class="layer">
+                <div class="candle">
+                    <div class="flame"></div>
+                </div>
+            </div>
+        </div>
+        <p style="margin-top: 10px; font-size: 1.2rem; color: #1976d2; font-weight: 300;">Blow out the candle and make a wish! 🎂</p>
+    </div>
+
+    <!-- Comments Section -->
+    <div class="comments-section">
+        <h2>Leave a Birthday Wish!</h2>
+        <form class="comment-form" id="commentForm">
+            <input type="text" id="name" placeholder="Your Name" required>
+            <textarea id="comment" placeholder="Your Birthday Message..." rows="3" required></textarea>
+            <button type="submit">Send Wish! 🎉</button>
+        </form>
+        <div class="comments-list" id="commentsList"></div>
+    </div>
+
+    <script>
+        // Countdown Timer
+        function updateCountdown() {
+            const targetDate = new Date('2025-11-27T00:00:00+05:30').getTime(); // IST
+            const now = new Date().getTime();
+            const difference = targetDate - now;
+
+            if (difference > 0) {
+                const days = Math.floor(difference / (1000 * 60 * 60 * 24));
+                const hours = Math.floor((difference % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+                const minutes = Math.floor((difference % (1000 * 60 * 60)) / (1000 * 60));
+                const seconds = Math.floor((difference % (1000 * 60)) / 1000);
+
+                document.getElementById('days').textContent = days.toString().padStart(2, '0');
+                document.getElementById('hours').textContent = hours.toString().padStart(2, '0');
+                document.getElementById('minutes').textContent = minutes.toString().padStart(2, '0');
+                document.getElementById('seconds').textContent = seconds.toString().padStart(2, '0');
+            } else {
+                document.querySelector('.time-display').innerHTML = '<div style="font-size: 2rem; color: #1565c0;">It\'s Midnight! Happy Birthday! 🎊</div>';
+            }
+        }
+
+        setInterval(updateCountdown, 1000);
+        updateCountdown(); // Initial call
+
+        // Generate Balloons (Reduced for performance)
+        function createBalloons() {
+            const balloonsContainer = document.getElementById('balloons');
+            for (let i = 0; i < 5; i++) {  // Reduced from 10 to 5
+                const balloon = document.createElement('div');
+                balloon.className = 'balloon';
+                balloon.style.left = Math.random() * 100 + '%';
+                balloon.style.animationDelay = Math.random() * 8 + 's';
+                const colors = [
+                    'radial-gradient(circle at 30% 30%, #2196f3, #42a5f5)',
+                    'radial-gradient(circle at 30% 30%, #64b5f6, #90caf9)',
+                    'radial-gradient(circle at 30% 30%, #bbdefb, #e3f2fd)',
+                    'radial-gradient(circle at 30% 30%, #90caf9, #64b5f6)'
+                ];
+                balloon.style.background = colors[Math.floor(Math.random() * colors.length)];
+                balloonsContainer.appendChild(balloon);
+            }
+        }
+        createBalloons();
+        setInterval(createBalloons, 10000);  // Increased from 6s to 10s
+
+        // Comments Functionality
+        let comments = JSON.parse(localStorage.getItem('birthdayComments')) || [];
+
+        function renderComments() {
+            const commentsList = document.getElementById('commentsList');
+            commentsList.innerHTML = comments.map((comment, index) => `
+                <div class="comment" data-index="${index}">
+                    <button class="delete-btn" onclick="deleteComment(${index})">&times;</button>
+                    <div class="comment-header">${comment.name}</div>
+                    <div class="comment-text">${comment.text}</div>
+                </div>
+            `).join('');
+        }
+
+        function deleteComment(index) {
+            if (confirm('Are you sure you want to delete this comment?')) {
+                comments.splice(index, 1);
+                localStorage.setItem('birthdayComments', JSON.stringify(comments));
+                renderComments();
+            }
+        }
+
+        document.getElementById('commentForm').addEventListener('submit', function(e) {
+            e.preventDefault();
+            const name = document.getElementById('name').value.trim();
+            const text = document.getElementById('comment').value.trim();
+            if (name && text) {
+                comments.unshift({ name, text, timestamp: new Date().toISOString() });
+                localStorage.setItem('birthdayComments', JSON.stringify(comments));
+                renderComments();
+                document.getElementById('commentForm').reset();
+            }
+        });
+
+        renderComments(); // Load existing comments
+    </script>
+</body>
+</html>
