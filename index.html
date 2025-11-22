@@ -5,6 +5,9 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Happy Birthday Nandini!</title>
     <link href="https://fonts.googleapis.com/css2?family=Dancing+Script:wght@400;700&family=Roboto:wght@300;400;700&display=swap" rel="stylesheet">
+    <script src="https://www.gstatic.com/firebasejs/10.13.1/firebase-app-compat.js"></script>
+    <script src=>"https://www.gstatic.com/firebasejs/10.13.1/firebase-database-compat.js"
+</script>
     <style>
         /* Global Styles */
         * {
@@ -336,6 +339,22 @@
     </div>
 
     <script>
+        // Firebase Config - Replace with your own config
+        const firebaseConfig = {
+            apiKey: "AIzaSyBL9jHmv23IZPGK7-sTnDPLG-e4tPU6Ic0",
+            authDomain: "birthday-script-3aae9.firebaseapp.com",
+            databaseURL: "https://birthday-script-3aae9-default-rtdb.firebaseio.com",
+            projectId: "birthday-script-3aae9",
+            storageBucket: "birthday-script-3aae9.firebasestorage.app",
+            messagingSenderId: "362180220168",
+            appId: "1:362180220168:web:3f192f7896c9d0001048bd"
+        };
+
+        // Initialize Firebase
+        firebase.initializeApp(firebaseConfig);
+        const db = firebase.database();
+        const commentsRef = db.ref('birthdayComments');
+
         // Countdown Timer
         function updateCountdown() {
             const targetDate = new Date('2025-11-27T00:00:00+05:30').getTime(); // IST
@@ -363,7 +382,7 @@
         // Generate Balloons (Reduced for performance)
         function createBalloons() {
             const balloonsContainer = document.getElementById('balloons');
-            for (let i = 0; i < 5; i++) {  // Reduced from 10 to 5
+            for (let i = 0; i < 5; i++) {
                 const balloon = document.createElement('div');
                 balloon.className = 'balloon';
                 balloon.style.left = Math.random() * 100 + '%';
@@ -379,27 +398,34 @@
             }
         }
         createBalloons();
-        setInterval(createBalloons, 10000);  // Increased from 6s to 10s
+        setInterval(createBalloons, 10000);
 
-        // Comments Functionality
-        let comments = JSON.parse(localStorage.getItem('birthdayComments')) || [];
-
-        function renderComments() {
+        // Comments Functionality with Firebase
+        function renderComments(comments) {
             const commentsList = document.getElementById('commentsList');
             commentsList.innerHTML = comments.map((comment, index) => `
-                <div class="comment" data-index="${index}">
-                    <button class="delete-btn" onclick="deleteComment(${index})">&times;</button>
+                <div class="comment" data-key="${comment.key}">
+                    <button class="delete-btn" onclick="deleteComment('${comment.key}')">&times;</button>
                     <div class="comment-header">${comment.name}</div>
                     <div class="comment-text">${comment.text}</div>
                 </div>
             `).join('');
         }
 
-        function deleteComment(index) {
+        // Listen for changes in the database
+        commentsRef.orderByChild('timestamp').limitToLast(50).on('value', (snapshot) => {
+            const comments = [];
+            snapshot.forEach((childSnapshot) => {
+                const childData = childSnapshot.val();
+                childData.key = childSnapshot.key;
+                comments.unshift(childData); // Newest first
+            });
+            renderComments(comments);
+        });
+
+        function deleteComment(key) {
             if (confirm('Are you sure you want to delete this comment?')) {
-                comments.splice(index, 1);
-                localStorage.setItem('birthdayComments', JSON.stringify(comments));
-                renderComments();
+                commentsRef.child(key).remove();
             }
         }
 
@@ -408,14 +434,14 @@
             const name = document.getElementById('name').value.trim();
             const text = document.getElementById('comment').value.trim();
             if (name && text) {
-                comments.unshift({ name, text, timestamp: new Date().toISOString() });
-                localStorage.setItem('birthdayComments', JSON.stringify(comments));
-                renderComments();
+                commentsRef.push({
+                    name,
+                    text,
+                    timestamp: firebase.database.ServerValue.TIMESTAMP
+                });
                 document.getElementById('commentForm').reset();
             }
         });
-
-        renderComments(); // Load existing comments
     </script>
 </body>
 </html>
